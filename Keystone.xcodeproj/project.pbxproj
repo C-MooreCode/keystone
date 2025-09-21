@@ -27,6 +27,7 @@
         A00100000000000000000013 /* WidgetsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000013 /* WidgetsPlaceholder.swift */; };
         A00100000000000000000014 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000014 /* DesignSystem.swift */; };
         A00100000000000000000015 /* TestingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000015 /* TestingUtilities.swift */; };
+        A0010000000000000000001A /* DomainEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001A /* DomainEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
         A00100010000000000000013 /* WidgetsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsPlaceholder.swift; sourceTree = "<group>"; };
         A00100010000000000000014 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
         A00100010000000000000015 /* TestingUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingUtilities.swift; sourceTree = "<group>"; };
+        A0010001000000000000001A /* DomainEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainEvent.swift; sourceTree = "<group>"; };
         A00100010000000000000016 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
         A00100010000000000000017 /* Keystone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Keystone.entitlements; sourceTree = SOURCE_ROOT; };
         A00100010000000000000018 /* Keystone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keystone.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +154,7 @@
             isa = PBXGroup;
             children = (
                 A00100010000000000000004 /* AppEvent.swift */,
+                A0010001000000000000001A /* DomainEvent.swift */,
             );
             path = Events;
             sourceTree = "<group>";
@@ -374,6 +377,7 @@
                 A00100000000000000000015 /* TestingUtilities.swift in Sources */,
                 A00100000000000000000003 /* AppState.swift in Sources */,
                 A00100000000000000000004 /* AppEvent.swift in Sources */,
+                A0010000000000000000001A /* DomainEvent.swift in Sources */,
             );
         };
 /* End PBXSourcesBuildPhase section */

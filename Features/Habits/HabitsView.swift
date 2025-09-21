@@ -865,20 +865,8 @@ private struct NoFocusActivityController: FocusActivityHandling {
 import ActivityKit
 
 @available(iOS 17.0, *)
-private struct FocusActivityAttributes: ActivityAttributes {
-    public struct ContentState: Codable, Hashable {
-        var habitName: String
-        var remaining: Int
-        var total: Int
-    }
-
-    var habitId: UUID
-    var title: String
-}
-
-@available(iOS 17.0, *)
 private final class LiveFocusActivityController: FocusActivityHandling {
-    private var activity: Activity<FocusActivityAttributes>?
+    private var activity: Activity<FocusSessionActivityAttributes>?
 
     var isAvailable: Bool {
         ActivityAuthorizationInfo().areActivitiesEnabled
@@ -886,14 +874,15 @@ private final class LiveFocusActivityController: FocusActivityHandling {
 
     func start(timer: HabitTimerState) async {
         guard isAvailable else { return }
-        let attributes = FocusActivityAttributes(
+        let attributes = FocusSessionActivityAttributes(
             habitId: timer.habitId,
             title: timer.habitName
         )
-        let content = FocusActivityAttributes.ContentState(
+        let content = FocusSessionActivityAttributes.ContentState(
             habitName: timer.habitName,
-            remaining: Int(timer.remaining),
-            total: Int(timer.duration)
+            targetSeconds: Int(timer.duration),
+            startDate: timer.startedAt,
+            endDate: timer.startedAt.addingTimeInterval(timer.duration)
         )
 
         activity = try? Activity.request(attributes: attributes, contentState: content)
@@ -901,10 +890,11 @@ private final class LiveFocusActivityController: FocusActivityHandling {
 
     func update(timer: HabitTimerState) async {
         guard let activity else { return }
-        let content = FocusActivityAttributes.ContentState(
+        let content = FocusSessionActivityAttributes.ContentState(
             habitName: timer.habitName,
-            remaining: Int(timer.remaining),
-            total: Int(timer.duration)
+            targetSeconds: Int(timer.duration),
+            startDate: timer.startedAt,
+            endDate: timer.startedAt.addingTimeInterval(timer.duration)
         )
         await activity.update(using: content)
     }

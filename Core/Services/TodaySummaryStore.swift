@@ -6,7 +6,8 @@ import WidgetKit
 struct TodaySummaryStore {
     static let suiteName = "group.com.example.keystone"
     static let storageKey = "today.summary.snapshot"
-    static let widgetKind = "KeystoneTodayWidget"
+    static let todaySummaryWidgetKind = "TodaySummaryWidget"
+    static let lowStockWidgetKind = "LowStockWidget"
 
     private let userDefaults: UserDefaults?
 
@@ -38,7 +39,8 @@ struct TodaySummaryStore {
         }
 
         #if canImport(WidgetKit)
-        WidgetCenter.shared.reloadTimelines(ofKind: Self.widgetKind)
+        WidgetCenter.shared.reloadTimelines(ofKind: Self.todaySummaryWidgetKind)
+        WidgetCenter.shared.reloadTimelines(ofKind: Self.lowStockWidgetKind)
         #endif
     }
 }

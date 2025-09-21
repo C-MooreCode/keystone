@@ -737,19 +737,6 @@ private struct NoActivityController: StoreTripActivityHandling {
 import ActivityKit
 
 @available(iOS 17.0, *)
-private struct StoreTripActivityAttributes: ActivityAttributes {
-    public struct ContentState: Codable, Hashable {
-        var totalItems: Int
-        var completedItems: Int
-        var pendingItems: Int
-    }
-
-    var listId: UUID
-    var storeName: String
-    var title: String
-}
-
-@available(iOS 17.0, *)
 private final class LiveStoreTripActivityController: StoreTripActivityHandling {
     private var activity: Activity<StoreTripActivityAttributes>?
     private var lastState: StoreTripActivityAttributes.ContentState?

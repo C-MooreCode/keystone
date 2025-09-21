@@ -34,6 +34,8 @@
         A0010000000000000000001F /* TodaySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001F /* TodaySummary.swift */; };
         A00100000000000000000020 /* TodaySummaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000020 /* TodaySummaryStore.swift */; };
         A00100000000000000000021 /* TodayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000021 /* TodayViewModel.swift */; };
+        B0F4C0C21E4B4E9AA8A0E101 /* LiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F4C0C11E4B4E9AA8A0E101 /* LiveActivityAttributes.swift */; };
+        B0F4C0C41E4B4E9AA8A0E101 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F4C0C31E4B4E9AA8A0E101 /* LiveActivities.swift */; };
         2F9E1BE900A3409B97FE14CA /* SharedInboxQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB960B0A435D4EC8BF59EC99 /* SharedInboxQueue.swift */; };
         46196C7533054953BCB88F59 /* ShareInboxImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB74D3BB46D4A8E89E6E43F /* ShareInboxImporter.swift */; };
         CB781DFE4F48485DBBEF6FDA /* ShareExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236E73F128E4D24AF880EE4 /* ShareExtensionViewController.swift */; };
@@ -78,6 +80,8 @@
         52E4EABA5DE1434891C902AF /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Extensions/ShareExtension/ShareExtension.entitlements; sourceTree = SOURCE_ROOT; };
         CE9DAF654B324F0D90D75DD2 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = wrapper.app-extension; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
         BA44CA88E67F457382246731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Extensions/ShareExtension/Info.plist; sourceTree = SOURCE_ROOT; };
+        B0F4C0C11E4B4E9AA8A0E101 /* LiveActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Activities/LiveActivityAttributes.swift; sourceTree = SOURCE_ROOT; };
+        B0F4C0C31E4B4E9AA8A0E101 /* LiveActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions/Widgets/LiveActivities.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
         A00100030000000000000002 /* Core */ = {
             isa = PBXGroup;
             children = (
+                B0F4C0C51E4B4E9AA8A0E101 /* Activities */,
                 A00100030000000000000007 /* Models */,
                 A00100030000000000000008 /* Events */,
                 A00100030000000000000009 /* Rules */,
@@ -134,6 +139,14 @@
             );
             path = Inventory;
             sourceTree = SOURCE_ROOT;
+        };
+        B0F4C0C51E4B4E9AA8A0E101 /* Activities */ = {
+            isa = PBXGroup;
+            children = (
+                B0F4C0C11E4B4E9AA8A0E101 /* LiveActivityAttributes.swift */,
+            );
+            path = Activities;
+            sourceTree = "<group>";
         };
         A00100030000000000000003 /* Features */ = {
             isa = PBXGroup;
@@ -318,6 +331,7 @@
         A00100030000000000000017 /* Widgets */ = {
             isa = PBXGroup;
             children = (
+                B0F4C0C31E4B4E9AA8A0E101 /* LiveActivities.swift */,
                 A00100010000000000000013 /* TodayWidget.swift */,
             );
             path = Widgets;
@@ -452,6 +466,8 @@
                 A0010000000000000000001B /* InventoryOperationTracker.swift in Sources */,
                 A0010000000000000000001C /* BudgetPublisher.swift in Sources */,
                 A0010000000000000000001D /* CurrencyMath.swift in Sources */,
+                B0F4C0C21E4B4E9AA8A0E101 /* LiveActivityAttributes.swift in Sources */,
+                B0F4C0C41E4B4E9AA8A0E101 /* LiveActivities.swift in Sources */,
             );
         };
         E6AB638C054543A8B51A4073 /* Sources */ = {

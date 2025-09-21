@@ -1,123 +1,46 @@
 import SwiftUI
 import WidgetKit
 
-struct TodayWidgetEntry: TimelineEntry {
+struct TodaySummaryEntry: TimelineEntry {
     let date: Date
     let summary: TodaySummarySnapshot
 }
 
-struct TodayWidgetProvider: TimelineProvider {
-    func placeholder(in context: Context) -> TodayWidgetEntry {
-        TodayWidgetEntry(date: Date(), summary: .placeholder)
+struct TodaySummaryProvider: TimelineProvider {
+    func placeholder(in context: Context) -> TodaySummaryEntry {
+        TodaySummaryEntry(date: Date(), summary: .placeholder)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (TodayWidgetEntry) -> Void) {
+    func getSnapshot(in context: Context, completion: @escaping (TodaySummaryEntry) -> Void) {
         let summary = TodaySummaryStore().load() ?? .placeholder
-        completion(TodayWidgetEntry(date: Date(), summary: summary))
+        completion(TodaySummaryEntry(date: Date(), summary: summary))
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<TodayWidgetEntry>) -> Void) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<TodaySummaryEntry>) -> Void) {
         let summary = TodaySummaryStore().load() ?? .placeholder
-        let entry = TodayWidgetEntry(date: Date(), summary: summary)
+        let entry = TodaySummaryEntry(date: Date(), summary: summary)
         let nextUpdate = Calendar.current.date(byAdding: .minute, value: 15, to: Date()) ?? Date().addingTimeInterval(900)
         completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
     }
 }
 
-struct TodayWidgetEntryView: View {
-    var entry: TodayWidgetEntry
-
-    private var budgetPrimaryText: String {
-        if let budget = entry.summary.budget {
-            return budget.remainingFormatted
-        }
-        return "Set up budgets"
-    }
-
-    private var budgetSecondaryText: String? {
-        entry.summary.budget.map { "of \($0.limitFormatted)" }
-    }
-
-    private var lowStockPrimary: String {
-        let count = entry.summary.lowStockCount
-        if count == 0 {
-            return "All stocked"
-        }
-        return "\(count) low"
-    }
-
-    private var lowStockSecondary: String? {
-        entry.summary.lowStockCount == 0 ? nil : "Needs review"
-    }
-
-    private var inboxPrimary: String {
-        let count = entry.summary.inboxCount
-        if count == 0 {
-            return "Inbox zero"
-        }
-        return "\(count) waiting"
-    }
-
-    private var inboxSecondary: String? {
-        entry.summary.inboxCount == 0 ? "You're caught up" : nil
-    }
-
-    private var calendarPrimary: String {
-        entry.summary.calendar.displayTitle
-    }
-
-    private var calendarSecondary: String? {
-        entry.summary.calendar.displaySubtitle
-    }
+struct TodaySummaryWidgetView: View {
+    let entry: TodaySummaryEntry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             Text("Today")
                 .font(.headline)
 
-            deepLinkRow(tab: .expenses) {
-                WidgetRow(
-                    icon: "creditcard",
-                    color: .green,
-                    title: "Budget",
-                    primary: budgetPrimaryText,
-                    secondary: budgetSecondaryText
-                )
+            deepLink(tab: .expenses) {
+                BudgetSummaryCard(budget: entry.summary.budget)
             }
 
-            deepLinkRow(tab: .inventory) {
-                WidgetRow(
-                    icon: "shippingbox",
-                    color: .orange,
-                    title: "Low stock",
-                    primary: lowStockPrimary,
-                    secondary: lowStockSecondary
-                )
+            deepLink(tab: .inventory) {
+                LowStockSummaryCard(count: entry.summary.lowStockCount)
             }
 
-            deepLinkRow(tab: .today) {
-                WidgetRow(
-                    icon: "calendar",
-                    color: .blue,
-                    title: "Next block",
-                    primary: calendarPrimary,
-                    secondary: calendarSecondary
-                )
-            }
-
-            deepLinkRow(tab: .habits) {
-                HabitsWidgetRow(habits: entry.summary.habits)
-            }
-
-            deepLinkRow(tab: .inbox) {
-                WidgetRow(
-                    icon: "tray",
-                    color: .teal,
-                    title: "Inbox",
-                    primary: inboxPrimary,
-                    secondary: inboxSecondary
-                )
-            }
+            HabitButtonsView(habits: entry.summary.habits)
         }
         .padding()
         .widgetBackground()
@@ -125,7 +48,7 @@ struct TodayWidgetEntryView: View {
     }
 
     @ViewBuilder
-    private func deepLinkRow<Content: View>(tab: AppState.Tab, @ViewBuilder content: () -> Content) -> some View {
+    private func deepLink(tab: AppState.Tab, @ViewBuilder content: () -> some View) -> some View {
         if #available(iOS 17.0, macOS 14.0, *) {
             Link(destination: AppDeepLink.tab(tab).url) {
                 content()
@@ -136,91 +59,256 @@ struct TodayWidgetEntryView: View {
     }
 }
 
-private struct WidgetRow: View {
-    let icon: String
-    let color: Color
-    let title: String
-    let primary: String
-    let secondary: String?
+private struct BudgetSummaryCard: View {
+    let budget: TodaySummarySnapshot.Budget?
 
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
-            Image(systemName: icon)
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(color)
-                .frame(width: 26, height: 26)
+        HStack(alignment: .center, spacing: 12) {
+            Image(systemName: "creditcard")
+                .font(.title3)
+                .foregroundStyle(.green)
+                .frame(width: 36, height: 36)
                 .background(
-                    Circle()
-                        .fill(color.opacity(0.15))
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.green.opacity(0.15))
                 )
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title.uppercased())
-                    .font(.caption2)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Budget left")
+                    .font(.caption)
                     .foregroundStyle(.secondary)
-                Text(primary)
+
+                if let budget {
+                    Text(budget.remainingFormatted)
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    Text("of \(budget.limitFormatted)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    ProgressView(value: budget.progress)
+                        .progressViewStyle(.linear)
+                } else {
+                    Text("Set up budgets")
+                        .font(.callout.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    Text("Track your spending limits")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+private struct LowStockSummaryCard: View {
+    let count: Int
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            Image(systemName: "shippingbox")
+                .font(.title3)
+                .foregroundStyle(.orange)
+                .frame(width: 36, height: 36)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.orange.opacity(0.15))
+                )
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Low stock")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Text(primaryText)
                     .font(.callout.weight(.semibold))
                     .foregroundStyle(.primary)
-                    .lineLimit(2)
-                if let secondary {
-                    Text(secondary)
-                        .font(.caption2)
+                if let detailText {
+                    Text(detailText)
+                        .font(.caption)
                         .foregroundStyle(.secondary)
-                        .lineLimit(2)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var primaryText: String {
+        if count == 0 {
+            return "All stocked"
+        }
+        return "\(count) item\(count == 1 ? "" : "s")"
+    }
+
+    private var detailText: String? {
+        count == 0 ? "Nothing needs attention" : "Tap to review inventory"
+    }
+}
+
+private struct HabitButtonsView: View {
+    let habits: [TodaySummarySnapshot.Habit]
+
+    private var displayedHabits: [TodaySummarySnapshot.Habit] {
+        Array(habits.prefix(2))
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Habits")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            HStack(spacing: 8) {
+                ForEach(displayedHabits) { habit in
+                    HabitQuickAction(habit: habit)
+                }
+
+                if displayedHabits.count < 2 {
+                    for index in displayedHabits.count..<2 {
+                        AddHabitQuickAction(isEmptyState: displayedHabits.isEmpty && index == 0)
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+private struct HabitQuickAction: View {
+    let habit: TodaySummarySnapshot.Habit
+
+    var body: some View {
+        Link(destination: AppDeepLink.tab(.habits).url) {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 6) {
+                    Image(systemName: habit.isCompletedToday ? "checkmark.circle.fill" : "circle")
+                        .font(.caption)
+                        .foregroundStyle(habit.isCompletedToday ? Color.green : Color.secondary)
+                    Text(habit.name)
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.primary)
+                        .lineLimit(1)
+                }
+
+                Text(habit.statusDescription)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(10)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.purple.opacity(0.15))
+            )
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+private struct AddHabitQuickAction: View {
+    let isEmptyState: Bool
+
+    var body: some View {
+        Link(destination: AppDeepLink.tab(.habits).url) {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 6) {
+                    Image(systemName: "plus.circle")
+                        .font(.caption)
+                        .foregroundStyle(Color.purple)
+                    Text(isEmptyState ? "Add a habit" : "More habits")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.primary)
+                        .lineLimit(1)
+                }
+
+                Text("Open the Habits tab")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(10)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .strokeBorder(Color.purple.opacity(0.3))
+            )
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+struct LowStockWidgetEntry: TimelineEntry {
+    let date: Date
+    let items: [TodaySummarySnapshot.LowStockItem]
+}
+
+struct LowStockWidgetProvider: TimelineProvider {
+    func placeholder(in context: Context) -> LowStockWidgetEntry {
+        LowStockWidgetEntry(date: Date(), items: TodaySummarySnapshot.placeholder.lowStockItems)
+    }
+
+    func getSnapshot(in context: Context, completion: @escaping (LowStockWidgetEntry) -> Void) {
+        let summary = TodaySummaryStore().load() ?? .placeholder
+        completion(LowStockWidgetEntry(date: Date(), items: summary.lowStockItems))
+    }
+
+    func getTimeline(in context: Context, completion: @escaping (Timeline<LowStockWidgetEntry>) -> Void) {
+        let summary = TodaySummaryStore().load() ?? .placeholder
+        let entry = LowStockWidgetEntry(date: Date(), items: summary.lowStockItems)
+        let nextUpdate = Calendar.current.date(byAdding: .minute, value: 30, to: Date()) ?? Date().addingTimeInterval(1800)
+        completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
+    }
+}
+
+struct LowStockWidgetView: View {
+    let entry: LowStockWidgetEntry
+
+    private var displayedItems: [TodaySummarySnapshot.LowStockItem] {
+        Array(entry.items.prefix(5))
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Low stock")
+                .font(.headline)
+
+            if displayedItems.isEmpty {
+                Text("All items are above their thresholds.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(displayedItems) { item in
+                    LowStockRow(item: item)
                 }
             }
 
             Spacer(minLength: 0)
         }
-        .padding(.vertical, 4)
+        .padding()
+        .widgetBackground()
+        .widgetURL(AppDeepLink.tab(.inventory).url)
     }
 }
 
-private struct HabitsWidgetRow: View {
-    let habits: [TodaySummarySnapshot.Habit]
+private struct LowStockRow: View {
+    let item: TodaySummarySnapshot.LowStockItem
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            WidgetRow(
-                icon: "repeat",
-                color: .purple,
-                title: "Habits",
-                primary: habitsPrimaryText,
-                secondary: habitsSecondaryText
-            )
-
-            if !habits.isEmpty {
-                ForEach(habits.prefix(2)) { habit in
-                    HStack(alignment: .firstTextBaseline, spacing: 6) {
-                        Image(systemName: habit.isCompletedToday ? "checkmark.circle.fill" : "circle")
-                            .font(.caption)
-                            .foregroundStyle(habit.isCompletedToday ? Color.green : Color.gray)
-                        VStack(alignment: .leading, spacing: 1) {
-                            Text(habit.name)
-                                .font(.caption.weight(.semibold))
-                                .foregroundStyle(.primary)
-                                .lineLimit(1)
-                            Text(habit.statusDescription)
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(item.name)
+                    .font(.callout.weight(.semibold))
+                    .foregroundStyle(.primary)
+                    .lineLimit(1)
+                Spacer()
+                Text(item.quantityFormatted)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.primary)
             }
-        }
-    }
 
-    private var habitsPrimaryText: String {
-        if habits.isEmpty {
-            return "No habits yet"
+            Text(item.detailText)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
         }
-        let completed = habits.filter(\.isCompletedToday).count
-        return "\(completed)/\(habits.count) complete"
-    }
-
-    private var habitsSecondaryText: String? {
-        if habits.isEmpty { return "Add routines" }
-        return nil
+        .padding(.vertical, 4)
     }
 }
 
@@ -237,20 +325,38 @@ private extension View {
     }
 }
 
-struct KeystoneTodayWidget: Widget {
-    let kind: String = TodaySummaryStore.widgetKind
+struct TodaySummaryWidget: Widget {
+    let kind: String = TodaySummaryStore.todaySummaryWidgetKind
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: TodayWidgetProvider()) { entry in
-            TodayWidgetEntryView(entry: entry)
+        StaticConfiguration(kind: kind, provider: TodaySummaryProvider()) { entry in
+            TodaySummaryWidgetView(entry: entry)
         }
-        .configurationDisplayName("Today")
-        .description("Budget, inventory, habits, and inbox at a glance.")
+        .configurationDisplayName("Today Summary")
+        .description("Budget, inventory, and quick habit access.")
     }
 }
 
-#Preview(as: .systemMedium) {
-    KeystoneTodayWidget()
+struct LowStockWidget: Widget {
+    let kind: String = TodaySummaryStore.lowStockWidgetKind
+
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: LowStockWidgetProvider()) { entry in
+            LowStockWidgetView(entry: entry)
+        }
+        .configurationDisplayName("Low Stock")
+        .description("See items that need restocking.")
+    }
+}
+
+#Preview("Today Summary", as: .systemMedium) {
+    TodaySummaryWidget()
 } timeline: {
-    TodayWidgetEntry(date: .now, summary: .placeholder)
+    TodaySummaryEntry(date: .now, summary: .placeholder)
+}
+
+#Preview("Low Stock", as: .systemMedium) {
+    LowStockWidget()
+} timeline: {
+    LowStockWidgetEntry(date: .now, items: TodaySummarySnapshot.placeholder.lowStockItems)
 }

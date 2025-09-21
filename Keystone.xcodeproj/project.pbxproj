@@ -28,6 +28,7 @@
         A00100000000000000000014 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000014 /* DesignSystem.swift */; };
         A00100000000000000000015 /* TestingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000015 /* TestingUtilities.swift */; };
         A0010000000000000000001A /* DomainEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001A /* DomainEvent.swift */; };
+        A0010000000000000000001B /* InventoryOperationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001B /* InventoryOperationTracker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
         A00100010000000000000016 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
         A00100010000000000000017 /* Keystone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Keystone.entitlements; sourceTree = SOURCE_ROOT; };
         A00100010000000000000018 /* Keystone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keystone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+        A0010001000000000000001B /* InventoryOperationTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryOperationTracker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +99,17 @@
                 A0010003000000000000000B /* Sync */,
                 A0010003000000000000000C /* Services */,
                 A0010003000000000000000D /* Intents */,
+                A00100030000000000000020 /* Inventory */,
             );
             path = Core;
+            sourceTree = SOURCE_ROOT;
+        };
+        A00100030000000000000020 /* Inventory */ = {
+            isa = PBXGroup;
+            children = (
+                A0010001000000000000001B /* InventoryOperationTracker.swift */,
+            );
+            path = Inventory;
             sourceTree = SOURCE_ROOT;
         };
         A00100030000000000000003 /* Features */ = {
@@ -378,6 +389,7 @@
                 A00100000000000000000003 /* AppState.swift in Sources */,
                 A00100000000000000000004 /* AppEvent.swift in Sources */,
                 A0010000000000000000001A /* DomainEvent.swift in Sources */,
+                A0010000000000000000001B /* InventoryOperationTracker.swift in Sources */,
             );
         };
 /* End PBXSourcesBuildPhase section */

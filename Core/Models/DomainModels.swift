@@ -375,6 +375,41 @@ final class Attachment {
 }
 
 @Model
+final class BudgetEnvelope {
+    @Attribute(.unique) var id: UUID
+    var name: String
+    @Attribute(.transformable(by: DecimalAttributeTransformer.self)) var monthlyLimit: Decimal
+    var currency: String
+    @Attribute(.transformable(by: CodableTransformer<[String]>.self)) var tags: [String]
+    var notes: String?
+    var createdAt: Date
+
+    init(
+        id: UUID = UUID(),
+        name: String,
+        monthlyLimit: Decimal,
+        currency: String,
+        tags: [String] = [],
+        notes: String? = nil,
+        createdAt: Date = .now
+    ) throws {
+        self.id = id
+        self.name = try sanitizedNonEmpty(name, fieldName: "Envelope name")
+        self.monthlyLimit = try validatedPositive(monthlyLimit, fieldName: "Monthly limit")
+        let sanitizedCurrency = try sanitizedNonEmpty(currency, fieldName: "Currency").uppercased()
+        guard sanitizedCurrency.count == 3 else { throw ModelValidationError.invalidCurrency }
+        self.currency = sanitizedCurrency
+        self.tags = tags.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        if let notes {
+            self.notes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            self.notes = nil
+        }
+        self.createdAt = createdAt
+    }
+}
+
+@Model
 final class PersonLink {
     @Attribute(.unique) var id: UUID
     var contactIdentifier: String

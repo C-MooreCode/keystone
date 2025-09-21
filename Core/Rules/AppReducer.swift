@@ -37,4 +37,12 @@ extension AppStore {
             set: { self.send(.selectTab($0)) }
         )
     }
+
+    func open(url: URL) {
+        guard let deepLink = AppDeepLink(url: url) else { return }
+        switch deepLink {
+        case let .tab(tab):
+            send(.selectTab(tab))
+        }
+    }
 }

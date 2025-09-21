@@ -25,3 +25,45 @@ struct AppState {
         case settings
     }
 }
+
+extension AppState.Tab {
+    var deepLinkIdentifier: String {
+        switch self {
+        case .today:
+            return "today"
+        case .inbox:
+            return "inbox"
+        case .inventory:
+            return "inventory"
+        case .shopping:
+            return "shopping"
+        case .expenses:
+            return "expenses"
+        case .habits:
+            return "habits"
+        case .settings:
+            return "settings"
+        }
+    }
+
+    init?(deepLinkIdentifier: String) {
+        switch deepLinkIdentifier.lowercased() {
+        case "today":
+            self = .today
+        case "inbox":
+            self = .inbox
+        case "inventory":
+            self = .inventory
+        case "shopping":
+            self = .shopping
+        case "expenses":
+            self = .expenses
+        case "habits":
+            self = .habits
+        case "settings":
+            self = .settings
+        default:
+            return nil
+        }
+    }
+}

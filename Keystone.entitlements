@@ -10,6 +10,10 @@
     <array>
         <string>CloudKit</string>
     </array>
+    <key>com.apple.security.application-groups</key>
+    <array>
+        <string>group.com.example.keystone</string>
+    </array>
     <key>com.apple.developer.ubiquity-container-identifiers</key>
     <array>
         <string>iCloud.com.example.keystone</string>

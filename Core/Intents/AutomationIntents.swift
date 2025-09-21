@@ -241,6 +241,14 @@ struct TickHabitIntent: AppIntent {
             amount: amount
         )
         dependencies.services.events.post(kind: .habitTicked, payload: payload)
+        if let completed = payload["completed"] as? Bool, completed {
+            let completionPayload: [String: Any] = [
+                "habitId": payload["habitId"] ?? "",
+                "habitName": payload["habitName"] ?? "",
+                "streak": payload["streak"] ?? 0
+            ]
+            dependencies.services.events.post(kind: .habitCompleted, payload: completionPayload)
+        }
         return .result()
     }
 }

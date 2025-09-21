@@ -216,10 +216,13 @@ struct IntentUseCases {
     func tickHabit(habitReference: String, amount: Double?) async throws -> [String: Any] {
         let habit = try findHabit(reference: habitReference)
         let increment = amount ?? 1
+        var completed = false
+
         try services.persistence.habits.performAndSave {
             habit.lastCheckIn = .now
             if increment >= habit.target {
                 habit.streak += 1
+                completed = true
             }
         }
 
@@ -227,9 +230,20 @@ struct IntentUseCases {
             "habitId": habit.id.uuidString,
             "habitName": habit.name,
             "amount": increment,
-            "streak": habit.streak
+            "streak": habit.streak,
+            "completed": completed
         ])
         try recordEvent(kind: .habitTicked, payload: payload)
+
+        if completed {
+            let completionPayload = sanitizedPayload([
+                "habitId": habit.id.uuidString,
+                "habitName": habit.name,
+                "streak": habit.streak
+            ])
+            try recordEvent(kind: .habitCompleted, payload: completionPayload)
+        }
+
         return payload
     }
 

@@ -22,13 +22,17 @@ final class CompositionRoot: ObservableObject {
         let eventDispatcher = EventDispatcher()
         self.eventDispatcher = eventDispatcher
 
-        let services = ServiceContainer(persistence: persistence, eventDispatcher: eventDispatcher)
+        let syncService = SyncService(persistence: persistence)
+        let services = ServiceContainer(
+            persistence: persistence,
+            eventDispatcher: eventDispatcher,
+            syncService: syncService
+        )
         self.services = services
 
         let importer = ShareInboxImporter(persistence: persistence, events: eventDispatcher)
         importer.importPendingItems()
 
-        let syncService = SyncService()
         let reducer = AppReducer(services: services, persistence: persistence, syncService: syncService)
         self.appStore = AppStore(initialState: AppState(), reducer: reducer)
 

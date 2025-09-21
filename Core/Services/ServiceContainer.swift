@@ -10,6 +10,7 @@ struct ServiceContainer {
     let location: any LocationServicing
     let csvImporter: any CSVImportServicing
     let budgetPublisher: BudgetPublisher
+    let sync: SyncService
 
     init(
         persistence: PersistenceController,
@@ -17,7 +18,8 @@ struct ServiceContainer {
         vision: any VisionOCRServicing = VisionOCRService(),
         barcode: any BarcodeServicing = BarcodeService(),
         location: any LocationServicing = LocationService(),
-        csvImporter: any CSVImportServicing = CSVImportService()
+        csvImporter: any CSVImportServicing = CSVImportService(),
+        syncService: SyncService? = nil
     ) {
         self.persistence = persistence
         self.events = eventDispatcher
@@ -26,6 +28,11 @@ struct ServiceContainer {
         self.location = location
         self.csvImporter = csvImporter
         self.budgetPublisher = BudgetPublisher(persistence: persistence)
+        if let syncService {
+            self.sync = syncService
+        } else {
+            self.sync = SyncService(persistence: persistence)
+        }
     }
 }
 
@@ -34,7 +41,14 @@ extension ServiceContainer {
         do {
             let persistence = try PersistenceController(inMemory: true)
             let dispatcher = EventDispatcher()
-            return ServiceContainer(persistence: persistence, eventDispatcher: dispatcher)
+            let defaults = UserDefaults(suiteName: "preview.sync") ?? .standard
+            defaults.removePersistentDomain(forName: "preview.sync")
+            let sync = SyncService(persistence: persistence, defaults: defaults, isCloudKitEnabled: false)
+            return ServiceContainer(
+                persistence: persistence,
+                eventDispatcher: dispatcher,
+                syncService: sync
+            )
         } catch {
             fatalError("Failed to build preview services: \(error)")
         }
@@ -79,6 +93,14 @@ extension ServiceContainer {
             )
         }
 
-        return services
+        return ServiceContainer(
+            persistence: services.persistence,
+            eventDispatcher: services.events,
+            vision: services.vision,
+            barcode: services.barcode,
+            location: services.location,
+            csvImporter: services.csvImporter,
+            syncService: services.sync
+        )
     }
 }

@@ -24,13 +24,17 @@
         A00100000000000000000010 /* CalendarLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000010 /* CalendarLinksView.swift */; };
         A00100000000000000000011 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000011 /* SettingsView.swift */; };
         A00100000000000000000012 /* ShareExtensionPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000012 /* ShareExtensionPlaceholder.swift */; };
-        A00100000000000000000013 /* WidgetsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000013 /* WidgetsPlaceholder.swift */; };
+        A00100000000000000000013 /* TodayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000013 /* TodayWidget.swift */; };
         A00100000000000000000014 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000014 /* DesignSystem.swift */; };
         A00100000000000000000015 /* TestingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000015 /* TestingUtilities.swift */; };
         A0010000000000000000001A /* DomainEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001A /* DomainEvent.swift */; };
         A0010000000000000000001B /* InventoryOperationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001B /* InventoryOperationTracker.swift */; };
         A0010000000000000000001C /* BudgetPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001C /* BudgetPublisher.swift */; };
         A0010000000000000000001D /* CurrencyMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001D /* CurrencyMath.swift */; };
+        A0010000000000000000001E /* AppDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001E /* AppDeepLink.swift */; };
+        A0010000000000000000001F /* TodaySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001F /* TodaySummary.swift */; };
+        A00100000000000000000020 /* TodaySummaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000020 /* TodaySummaryStore.swift */; };
+        A00100000000000000000021 /* TodayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000021 /* TodayViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +56,7 @@
         A00100010000000000000010 /* CalendarLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLinksView.swift; sourceTree = "<group>"; };
         A00100010000000000000011 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
         A00100010000000000000012 /* ShareExtensionPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExtensionPlaceholder.swift; sourceTree = "<group>"; };
-        A00100010000000000000013 /* WidgetsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsPlaceholder.swift; sourceTree = "<group>"; };
+        A00100010000000000000013 /* TodayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWidget.swift; sourceTree = "<group>"; };
         A00100010000000000000014 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
         A00100010000000000000015 /* TestingUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingUtilities.swift; sourceTree = "<group>"; };
         A0010001000000000000001A /* DomainEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainEvent.swift; sourceTree = "<group>"; };
@@ -62,6 +66,10 @@
         A0010001000000000000001B /* InventoryOperationTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryOperationTracker.swift; sourceTree = "<group>"; };
         A0010001000000000000001C /* BudgetPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPublisher.swift; sourceTree = "<group>"; };
         A0010001000000000000001D /* CurrencyMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyMath.swift; sourceTree = "<group>"; };
+        A0010001000000000000001E /* AppDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDeepLink.swift; sourceTree = "<group>"; };
+        A0010001000000000000001F /* TodaySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySummary.swift; sourceTree = "<group>"; };
+        A00100010000000000000020 /* TodaySummaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySummaryStore.swift; sourceTree = "<group>"; };
+        A00100010000000000000021 /* TodayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,7 @@
             isa = PBXGroup;
             children = (
                 A00100010000000000000003 /* AppState.swift */,
+                A0010001000000000000001F /* TodaySummary.swift */,
             );
             path = Models;
             sourceTree = "<group>";
@@ -171,6 +180,7 @@
             children = (
                 A00100010000000000000004 /* AppEvent.swift */,
                 A0010001000000000000001A /* DomainEvent.swift */,
+                A0010001000000000000001E /* AppDeepLink.swift */,
             );
             path = Events;
             sourceTree = "<group>";
@@ -204,6 +214,7 @@
             children = (
                 A00100010000000000000008 /* ServiceContainer.swift */,
                 A0010001000000000000001C /* BudgetPublisher.swift */,
+                A00100010000000000000020 /* TodaySummaryStore.swift */,
             );
             path = Services;
             sourceTree = "<group>";
@@ -220,6 +231,7 @@
             isa = PBXGroup;
             children = (
                 A0010001000000000000000A /* TodayView.swift */,
+                A00100010000000000000021 /* TodayViewModel.swift */,
             );
             path = Today;
             sourceTree = "<group>";
@@ -291,7 +303,7 @@
         A00100030000000000000017 /* Widgets */ = {
             isa = PBXGroup;
             children = (
-                A00100010000000000000013 /* WidgetsPlaceholder.swift */,
+                A00100010000000000000013 /* TodayWidget.swift */,
             );
             path = Widgets;
             sourceTree = "<group>";
@@ -379,8 +391,10 @@
                 A00100000000000000000006 /* PersistenceController.swift in Sources */,
                 A00100000000000000000007 /* SyncService.swift in Sources */,
                 A00100000000000000000008 /* ServiceContainer.swift in Sources */,
+                A00100000000000000000020 /* TodaySummaryStore.swift in Sources */,
                 A00100000000000000000009 /* IntentHandling.swift in Sources */,
                 A0010000000000000000000A /* TodayView.swift in Sources */,
+                A00100000000000000000021 /* TodayViewModel.swift in Sources */,
                 A0010000000000000000000B /* InboxView.swift in Sources */,
                 A0010000000000000000000C /* InventoryView.swift in Sources */,
                 A0010000000000000000000D /* ShoppingView.swift in Sources */,
@@ -393,7 +407,9 @@
                 A00100000000000000000014 /* DesignSystem.swift in Sources */,
                 A00100000000000000000015 /* TestingUtilities.swift in Sources */,
                 A00100000000000000000003 /* AppState.swift in Sources */,
+                A0010000000000000000001F /* TodaySummary.swift in Sources */,
                 A00100000000000000000004 /* AppEvent.swift in Sources */,
+                A0010000000000000000001E /* AppDeepLink.swift in Sources */,
                 A0010000000000000000001A /* DomainEvent.swift in Sources */,
                 A0010000000000000000001B /* InventoryOperationTracker.swift in Sources */,
                 A0010000000000000000001C /* BudgetPublisher.swift in Sources */,

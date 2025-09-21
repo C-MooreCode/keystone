@@ -62,5 +62,8 @@ private struct RootView: View {
                 }
                 .tag(AppState.Tab.settings)
         }
+        .onOpenURL { url in
+            store.open(url: url)
+        }
     }
 }

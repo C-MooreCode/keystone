@@ -10,6 +10,7 @@ struct KeystoneApp: App {
             RootView()
                 .modelContainer(compositionRoot.modelContainer)
                 .environmentObject(compositionRoot.appStore)
+                .environment(\.services, compositionRoot.services)
         }
     }
 }

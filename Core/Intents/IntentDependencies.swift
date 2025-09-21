@@ -15,9 +15,11 @@ final class IntentDependencyContainerImplementation {
         do {
             let persistence = try PersistenceController()
             let dispatcher = EventDispatcher()
+            let syncService = SyncService(persistence: persistence)
             self.services = ServiceContainer(
                 persistence: persistence,
-                eventDispatcher: dispatcher
+                eventDispatcher: dispatcher,
+                syncService: syncService
             )
         } catch {
             fatalError("Failed to build intent dependencies: \(error)")

@@ -5,17 +5,26 @@ import SwiftUI
 final class SettingsViewModel: ObservableObject {
     @Published private(set) var configuration: SyncConfiguration
     @Published private(set) var status: SyncStatus
+    @Published var exportDocument: KeystoneExportDocument?
+    @Published private(set) var isPerformingDataTransfer = false
+    @Published private(set) var errorMessage: String?
+    @Published private(set) var successMessage: String?
 
     private var syncService: SyncService?
+    private var dataBackupService: DataBackupService?
     private var configurationTask: Task<Void, Never>?
     private var statusTask: Task<Void, Never>?
     private let relativeFormatter: RelativeDateTimeFormatter
+    private let exportFormatter: DateFormatter
+    private var exportURL: URL?
 
     init(configuration: SyncConfiguration = SyncConfiguration(), status: SyncStatus = .disabled) {
         self.configuration = configuration
         self.status = status
         self.relativeFormatter = RelativeDateTimeFormatter()
         self.relativeFormatter.unitsStyle = .abbreviated
+        self.exportFormatter = DateFormatter()
+        self.exportFormatter.dateFormat = "yyyy-MM-dd-HHmmss"
     }
 
     deinit {
@@ -27,7 +36,8 @@ final class SettingsViewModel: ObservableObject {
         SyncFeature.allCases
     }
 
-    func configureIfNeeded(syncService: SyncService) async {
+    func configureIfNeeded(syncService: SyncService, dataBackupService: DataBackupService) async {
+        self.dataBackupService = dataBackupService
         guard self.syncService == nil else { return }
         self.syncService = syncService
         configuration = await syncService.currentConfiguration()
@@ -80,6 +90,87 @@ final class SettingsViewModel: ObservableObject {
 
     func isFeatureEnabled(_ feature: SyncFeature) -> Bool {
         configuration.allows(feature)
+    }
+
+    var exportFilename: String {
+        "Keystone-\(exportFormatter.string(from: Date()))"
+    }
+
+    func exportData() {
+        guard let service = dataBackupService, !isPerformingDataTransfer else { return }
+        errorMessage = nil
+        successMessage = nil
+        isPerformingDataTransfer = true
+        Task {
+            do {
+                let url = try await service.prepareExportArchive()
+                await MainActor.run {
+                    self.exportURL = url
+                    self.exportDocument = KeystoneExportDocument(archiveURL: url)
+                }
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = error.localizedDescription
+                    self.isPerformingDataTransfer = false
+                }
+            }
+        }
+    }
+
+    func finalizeExport(result: Result<URL, Error>) {
+        switch result {
+        case let .success(url):
+            successMessage = "Exported data to \(url.lastPathComponent)."
+        case let .failure(error):
+            errorMessage = error.localizedDescription
+        }
+        cleanupExport()
+    }
+
+    func cancelExport() {
+        cleanupExport()
+    }
+
+    func importData(from url: URL) {
+        guard let service = dataBackupService, !isPerformingDataTransfer else { return }
+        errorMessage = nil
+        successMessage = nil
+        isPerformingDataTransfer = true
+        Task {
+            do {
+                try await service.importArchive(from: url)
+                await MainActor.run {
+                    self.successMessage = "Import completed successfully."
+                    self.isPerformingDataTransfer = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = error.localizedDescription
+                    self.isPerformingDataTransfer = false
+                }
+            }
+        }
+    }
+
+    func clearError() {
+        errorMessage = nil
+    }
+
+    func clearSuccess() {
+        successMessage = nil
+    }
+
+    func handle(error: Error) {
+        errorMessage = error.localizedDescription
+    }
+
+    private func cleanupExport() {
+        if let url = exportURL {
+            try? FileManager.default.removeItem(at: url)
+        }
+        exportURL = nil
+        exportDocument = nil
+        isPerformingDataTransfer = false
     }
 
     var statusDescription: String {

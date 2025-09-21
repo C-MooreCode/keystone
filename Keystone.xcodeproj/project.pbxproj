@@ -34,6 +34,11 @@
         A0010000000000000000001F /* TodaySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001F /* TodaySummary.swift */; };
         A00100000000000000000020 /* TodaySummaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000020 /* TodaySummaryStore.swift */; };
         A00100000000000000000021 /* TodayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000021 /* TodayViewModel.swift */; };
+        3FA82FB683DD4A1BA96E1693 /* SyncUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2BE1D2DCE41D98A72D3AC /* SyncUtilities.swift */; };
+        06951141348C40BBAAD9AE8F /* SyncAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ED051B55CC42E7A260EA14 /* SyncAdapters.swift */; };
+        8C773FF9243A4B96B5DC847F /* DataBackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B224F71A11C4553A72DDF9E /* DataBackupService.swift */; };
+        255FCF100EE94B5B8092E69C /* UTType+Keystone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8F36A4F89429D8E92746E /* UTType+Keystone.swift */; };
+        9759770986DD422A8F82E682 /* KeystoneExportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CF362BE9294B779B0964E2 /* KeystoneExportDocument.swift */; };
         B0F4C0C21E4B4E9AA8A0E101 /* LiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F4C0C11E4B4E9AA8A0E101 /* LiveActivityAttributes.swift */; };
         B0F4C0C41E4B4E9AA8A0E101 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F4C0C31E4B4E9AA8A0E101 /* LiveActivities.swift */; };
         2F9E1BE900A3409B97FE14CA /* SharedInboxQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB960B0A435D4EC8BF59EC99 /* SharedInboxQueue.swift */; };
@@ -54,6 +59,11 @@
         A00100010000000000000009 /* IntentHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandling.swift; sourceTree = "<group>"; };
         A0010001000000000000000A /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
         A0010001000000000000000B /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+        AFD2BE1D2DCE41D98A72D3AC /* SyncUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Sync/SyncUtilities.swift; sourceTree = SOURCE_ROOT; };
+        63ED051B55CC42E7A260EA14 /* SyncAdapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Sync/SyncAdapters.swift; sourceTree = SOURCE_ROOT; };
+        6B224F71A11C4553A72DDF9E /* DataBackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Services/DataBackupService.swift; sourceTree = SOURCE_ROOT; };
+        22B8F36A4F89429D8E92746E /* UTType+Keystone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support/Extensions/UTType+Keystone.swift; sourceTree = SOURCE_ROOT; };
+        23CF362BE9294B779B0964E2 /* KeystoneExportDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Settings/KeystoneExportDocument.swift; sourceTree = SOURCE_ROOT; };
         A0010001000000000000000C /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
         A0010001000000000000000D /* ShoppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingView.swift; sourceTree = "<group>"; };
         A0010001000000000000000E /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
@@ -177,10 +187,19 @@
             children = (
                 A00100030000000000000018 /* DesignSystem */,
                 A00100030000000000000019 /* Testing */,
+                D0C2FF79532D441D8B014064 /* Extensions */,
                 A0010001000000000000001D /* CurrencyMath.swift */,
             );
             path = Support;
             sourceTree = SOURCE_ROOT;
+        };
+        D0C2FF79532D441D8B014064 /* Extensions */ = {
+            isa = PBXGroup;
+            children = (
+                22B8F36A4F89429D8E92746E /* UTType+Keystone.swift */,
+            );
+            path = Extensions;
+            sourceTree = "<group>";
         };
         A00100030000000000000006 /* Resources */ = {
             isa = PBXGroup;
@@ -229,6 +248,8 @@
             isa = PBXGroup;
             children = (
                 A00100010000000000000007 /* SyncService.swift */,
+                63ED051B55CC42E7A260EA14 /* SyncAdapters.swift */,
+                AFD2BE1D2DCE41D98A72D3AC /* SyncUtilities.swift */,
             );
             path = Sync;
             sourceTree = "<group>";
@@ -241,6 +262,7 @@
                 2DB74D3BB46D4A8E89E6E43F /* ShareInboxImporter.swift */,
                 A0010001000000000000001C /* BudgetPublisher.swift */,
                 A00100010000000000000020 /* TodaySummaryStore.swift */,
+                6B224F71A11C4553A72DDF9E /* DataBackupService.swift */,
             );
             path = Services;
             sourceTree = "<group>";
@@ -314,6 +336,7 @@
             isa = PBXGroup;
             children = (
                 A00100010000000000000011 /* SettingsView.swift */,
+                23CF362BE9294B779B0964E2 /* KeystoneExportDocument.swift */,
             );
             path = Settings;
             sourceTree = "<group>";
@@ -441,7 +464,10 @@
                 A00100000000000000000005 /* AppReducer.swift in Sources */,
                 A00100000000000000000006 /* PersistenceController.swift in Sources */,
                 A00100000000000000000007 /* SyncService.swift in Sources */,
+                06951141348C40BBAAD9AE8F /* SyncAdapters.swift in Sources */,
+                3FA82FB683DD4A1BA96E1693 /* SyncUtilities.swift in Sources */,
                 A00100000000000000000008 /* ServiceContainer.swift in Sources */,
+                8C773FF9243A4B96B5DC847F /* DataBackupService.swift in Sources */,
                 2F9E1BE900A3409B97FE14CA /* SharedInboxQueue.swift in Sources */,
                 46196C7533054953BCB88F59 /* ShareInboxImporter.swift in Sources */,
                 A00100000000000000000020 /* TodaySummaryStore.swift in Sources */,
@@ -455,8 +481,10 @@
                 A0010000000000000000000F /* HabitsView.swift in Sources */,
                 A00100000000000000000010 /* CalendarLinksView.swift in Sources */,
                 A00100000000000000000011 /* SettingsView.swift in Sources */,
+                9759770986DD422A8F82E682 /* KeystoneExportDocument.swift in Sources */,
                 A00100000000000000000013 /* WidgetsPlaceholder.swift in Sources */,
                 A00100000000000000000014 /* DesignSystem.swift in Sources */,
+                255FCF100EE94B5B8092E69C /* UTType+Keystone.swift in Sources */,
                 A00100000000000000000015 /* TestingUtilities.swift in Sources */,
                 A00100000000000000000003 /* AppState.swift in Sources */,
                 A0010000000000000000001F /* TodaySummary.swift in Sources */,

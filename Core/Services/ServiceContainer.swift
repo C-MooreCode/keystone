@@ -11,6 +11,7 @@ struct ServiceContainer {
     let csvImporter: any CSVImportServicing
     let budgetPublisher: BudgetPublisher
     let sync: SyncService
+    let dataBackup: DataBackupService
 
     init(
         persistence: PersistenceController,
@@ -33,6 +34,7 @@ struct ServiceContainer {
         } else {
             self.sync = SyncService(persistence: persistence)
         }
+        self.dataBackup = DataBackupService(persistence: persistence)
     }
 }
 
@@ -44,11 +46,12 @@ extension ServiceContainer {
             let defaults = UserDefaults(suiteName: "preview.sync") ?? .standard
             defaults.removePersistentDomain(forName: "preview.sync")
             let sync = SyncService(persistence: persistence, defaults: defaults, isCloudKitEnabled: false)
-            return ServiceContainer(
+            let services = ServiceContainer(
                 persistence: persistence,
                 eventDispatcher: dispatcher,
                 syncService: sync
             )
+            return services
         } catch {
             fatalError("Failed to build preview services: \(error)")
         }

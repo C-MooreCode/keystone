@@ -9,6 +9,7 @@ struct ServiceContainer {
     let barcode: any BarcodeServicing
     let location: any LocationServicing
     let csvImporter: any CSVImportServicing
+    let budgetPublisher: BudgetPublisher
 
     init(
         persistence: PersistenceController,
@@ -24,6 +25,7 @@ struct ServiceContainer {
         self.barcode = barcode
         self.location = location
         self.csvImporter = csvImporter
+        self.budgetPublisher = BudgetPublisher(persistence: persistence)
     }
 }
 

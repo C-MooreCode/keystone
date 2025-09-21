@@ -29,6 +29,8 @@
         A00100000000000000000015 /* TestingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000015 /* TestingUtilities.swift */; };
         A0010000000000000000001A /* DomainEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001A /* DomainEvent.swift */; };
         A0010000000000000000001B /* InventoryOperationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001B /* InventoryOperationTracker.swift */; };
+        A0010000000000000000001C /* BudgetPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001C /* BudgetPublisher.swift */; };
+        A0010000000000000000001D /* CurrencyMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000001D /* CurrencyMath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
         A00100010000000000000017 /* Keystone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Keystone.entitlements; sourceTree = SOURCE_ROOT; };
         A00100010000000000000018 /* Keystone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keystone.app; sourceTree = BUILT_PRODUCTS_DIR; };
         A0010001000000000000001B /* InventoryOperationTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryOperationTracker.swift; sourceTree = "<group>"; };
+        A0010001000000000000001C /* BudgetPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPublisher.swift; sourceTree = "<group>"; };
+        A0010001000000000000001D /* CurrencyMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyMath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
             children = (
                 A00100030000000000000018 /* DesignSystem */,
                 A00100030000000000000019 /* Testing */,
+                A0010001000000000000001D /* CurrencyMath.swift */,
             );
             path = Support;
             sourceTree = SOURCE_ROOT;
@@ -198,6 +203,7 @@
             isa = PBXGroup;
             children = (
                 A00100010000000000000008 /* ServiceContainer.swift */,
+                A0010001000000000000001C /* BudgetPublisher.swift */,
             );
             path = Services;
             sourceTree = "<group>";
@@ -390,6 +396,8 @@
                 A00100000000000000000004 /* AppEvent.swift in Sources */,
                 A0010000000000000000001A /* DomainEvent.swift in Sources */,
                 A0010000000000000000001B /* InventoryOperationTracker.swift in Sources */,
+                A0010000000000000000001C /* BudgetPublisher.swift in Sources */,
+                A0010000000000000000001D /* CurrencyMath.swift in Sources */,
             );
         };
 /* End PBXSourcesBuildPhase section */

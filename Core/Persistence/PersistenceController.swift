@@ -17,6 +17,7 @@ final class PersistenceController {
         TaskLink.self,
         CalendarLink.self,
         Attachment.self,
+        BudgetEnvelope.self,
         PersonLink.self,
         RuleSpec.self,
         EventRecord.self,
@@ -68,6 +69,7 @@ final class PersistenceController {
     let taskLinks: ModelRepository<TaskLink>
     let calendarLinks: ModelRepository<CalendarLink>
     let attachments: ModelRepository<Attachment>
+    let budgetEnvelopes: ModelRepository<BudgetEnvelope>
     let personLinks: ModelRepository<PersonLink>
     let ruleSpecs: ModelRepository<RuleSpec>
     let eventRecords: ModelRepository<EventRecord>
@@ -95,6 +97,7 @@ final class PersistenceController {
         self.taskLinks = ModelRepository(context: mainContext)
         self.calendarLinks = ModelRepository(context: mainContext)
         self.attachments = ModelRepository(context: mainContext)
+        self.budgetEnvelopes = ModelRepository(context: mainContext)
         self.personLinks = ModelRepository(context: mainContext)
         self.ruleSpecs = ModelRepository(context: mainContext)
         self.eventRecords = ModelRepository(context: mainContext)
@@ -171,6 +174,7 @@ final class PersistenceController {
             "inventoryItems": try inventoryItems.count(),
             "shoppingLists": try shoppingLists.count(),
             "habits": try habits.count(),
+            "budgetEnvelopes": try budgetEnvelopes.count(),
             "rules": try ruleSpecs.count(),
         ]
 

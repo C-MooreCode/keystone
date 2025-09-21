@@ -3,6 +3,9 @@ import Foundation
 struct ServiceContainer {
     let designSystem = DesignSystem()
     let testing = TestingUtilities()
+    let persistence: PersistenceController
 
-    init() {}
+    init(persistence: PersistenceController) {
+        self.persistence = persistence
+    }
 }

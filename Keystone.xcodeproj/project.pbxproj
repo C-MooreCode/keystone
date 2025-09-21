@@ -1,0 +1,532 @@
+// !$*UTF8*$!
+{
+    archiveVersion = 1;
+    classes = {};
+    objectVersion = 56;
+    objects = {
+
+/* Begin PBXBuildFile section */
+        A00100000000000000000001 /* KeystoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000001 /* KeystoneApp.swift */; };
+        A00100000000000000000002 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000002 /* CompositionRoot.swift */; };
+        A00100000000000000000003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000003 /* AppState.swift */; };
+        A00100000000000000000004 /* AppEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000004 /* AppEvent.swift */; };
+        A00100000000000000000005 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000005 /* AppReducer.swift */; };
+        A00100000000000000000006 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000006 /* PersistenceController.swift */; };
+        A00100000000000000000007 /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000007 /* SyncService.swift */; };
+        A00100000000000000000008 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000008 /* ServiceContainer.swift */; };
+        A00100000000000000000009 /* IntentHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000009 /* IntentHandling.swift */; };
+        A0010000000000000000000A /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000000A /* TodayView.swift */; };
+        A0010000000000000000000B /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000000B /* InboxView.swift */; };
+        A0010000000000000000000C /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000000C /* InventoryView.swift */; };
+        A0010000000000000000000D /* ShoppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000000D /* ShoppingView.swift */; };
+        A0010000000000000000000E /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000000E /* ExpensesView.swift */; };
+        A0010000000000000000000F /* HabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010001000000000000000F /* HabitsView.swift */; };
+        A00100000000000000000010 /* CalendarLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000010 /* CalendarLinksView.swift */; };
+        A00100000000000000000011 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000011 /* SettingsView.swift */; };
+        A00100000000000000000012 /* ShareExtensionPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000012 /* ShareExtensionPlaceholder.swift */; };
+        A00100000000000000000013 /* WidgetsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000013 /* WidgetsPlaceholder.swift */; };
+        A00100000000000000000014 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000014 /* DesignSystem.swift */; };
+        A00100000000000000000015 /* TestingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00100010000000000000015 /* TestingUtilities.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+        A00100010000000000000001 /* KeystoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneApp.swift; sourceTree = "<group>"; };
+        A00100010000000000000002 /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
+        A00100010000000000000003 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+        A00100010000000000000004 /* AppEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEvent.swift; sourceTree = "<group>"; };
+        A00100010000000000000005 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
+        A00100010000000000000006 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+        A00100010000000000000007 /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
+        A00100010000000000000008 /* ServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
+        A00100010000000000000009 /* IntentHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandling.swift; sourceTree = "<group>"; };
+        A0010001000000000000000A /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+        A0010001000000000000000B /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+        A0010001000000000000000C /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
+        A0010001000000000000000D /* ShoppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingView.swift; sourceTree = "<group>"; };
+        A0010001000000000000000E /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
+        A0010001000000000000000F /* HabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsView.swift; sourceTree = "<group>"; };
+        A00100010000000000000010 /* CalendarLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLinksView.swift; sourceTree = "<group>"; };
+        A00100010000000000000011 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+        A00100010000000000000012 /* ShareExtensionPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExtensionPlaceholder.swift; sourceTree = "<group>"; };
+        A00100010000000000000013 /* WidgetsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsPlaceholder.swift; sourceTree = "<group>"; };
+        A00100010000000000000014 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+        A00100010000000000000015 /* TestingUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingUtilities.swift; sourceTree = "<group>"; };
+        A00100010000000000000016 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        A00100010000000000000017 /* Keystone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Keystone.entitlements; sourceTree = SOURCE_ROOT; };
+        A00100010000000000000018 /* Keystone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keystone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+        A00100020000000000000000 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = ();
+        };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+        A00100030000000000000000 = {
+            isa = PBXGroup;
+            children = (
+                A00100030000000000000001 /* App */,
+                A00100030000000000000002 /* Core */,
+                A00100030000000000000003 /* Features */,
+                A00100030000000000000004 /* Extensions */,
+                A00100030000000000000005 /* Support */,
+                A00100010000000000000017 /* Keystone.entitlements */,
+                A00100030000000000000006 /* Resources */,
+                A00100010000000000000018 /* Keystone.app */,
+            );
+            sourceTree = "<group>";
+        };
+        A00100030000000000000001 /* App */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000001 /* KeystoneApp.swift */,
+                A00100010000000000000002 /* CompositionRoot.swift */,
+            );
+            path = App;
+            sourceTree = SOURCE_ROOT;
+        };
+        A00100030000000000000002 /* Core */ = {
+            isa = PBXGroup;
+            children = (
+                A00100030000000000000007 /* Models */,
+                A00100030000000000000008 /* Events */,
+                A00100030000000000000009 /* Rules */,
+                A0010003000000000000000A /* Persistence */,
+                A0010003000000000000000B /* Sync */,
+                A0010003000000000000000C /* Services */,
+                A0010003000000000000000D /* Intents */,
+            );
+            path = Core;
+            sourceTree = SOURCE_ROOT;
+        };
+        A00100030000000000000003 /* Features */ = {
+            isa = PBXGroup;
+            children = (
+                A0010003000000000000000E /* Today */,
+                A0010003000000000000000F /* Inbox */,
+                A00100030000000000000010 /* Inventory */,
+                A00100030000000000000011 /* Shopping */,
+                A00100030000000000000012 /* Expenses */,
+                A00100030000000000000013 /* Habits */,
+                A00100030000000000000014 /* CalendarLinks */,
+                A00100030000000000000015 /* Settings */,
+            );
+            path = Features;
+            sourceTree = SOURCE_ROOT;
+        };
+        A00100030000000000000004 /* Extensions */ = {
+            isa = PBXGroup;
+            children = (
+                A00100030000000000000016 /* ShareExtension */,
+                A00100030000000000000017 /* Widgets */,
+            );
+            path = Extensions;
+            sourceTree = SOURCE_ROOT;
+        };
+        A00100030000000000000005 /* Support */ = {
+            isa = PBXGroup;
+            children = (
+                A00100030000000000000018 /* DesignSystem */,
+                A00100030000000000000019 /* Testing */,
+            );
+            path = Support;
+            sourceTree = SOURCE_ROOT;
+        };
+        A00100030000000000000006 /* Resources */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000016 /* Info.plist */,
+            );
+            path = Resources;
+            sourceTree = SOURCE_ROOT;
+        };
+        A00100030000000000000007 /* Models */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000003 /* AppState.swift */,
+            );
+            path = Models;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000008 /* Events */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000004 /* AppEvent.swift */,
+            );
+            path = Events;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000009 /* Rules */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000005 /* AppReducer.swift */,
+            );
+            path = Rules;
+            sourceTree = "<group>";
+        };
+        A0010003000000000000000A /* Persistence */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000006 /* PersistenceController.swift */,
+            );
+            path = Persistence;
+            sourceTree = "<group>";
+        };
+        A0010003000000000000000B /* Sync */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000007 /* SyncService.swift */,
+            );
+            path = Sync;
+            sourceTree = "<group>";
+        };
+        A0010003000000000000000C /* Services */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000008 /* ServiceContainer.swift */,
+            );
+            path = Services;
+            sourceTree = "<group>";
+        };
+        A0010003000000000000000D /* Intents */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000009 /* IntentHandling.swift */,
+            );
+            path = Intents;
+            sourceTree = "<group>";
+        };
+        A0010003000000000000000E /* Today */ = {
+            isa = PBXGroup;
+            children = (
+                A0010001000000000000000A /* TodayView.swift */,
+            );
+            path = Today;
+            sourceTree = "<group>";
+        };
+        A0010003000000000000000F /* Inbox */ = {
+            isa = PBXGroup;
+            children = (
+                A0010001000000000000000B /* InboxView.swift */,
+            );
+            path = Inbox;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000010 /* Inventory */ = {
+            isa = PBXGroup;
+            children = (
+                A0010001000000000000000C /* InventoryView.swift */,
+            );
+            path = Inventory;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000011 /* Shopping */ = {
+            isa = PBXGroup;
+            children = (
+                A0010001000000000000000D /* ShoppingView.swift */,
+            );
+            path = Shopping;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000012 /* Expenses */ = {
+            isa = PBXGroup;
+            children = (
+                A0010001000000000000000E /* ExpensesView.swift */,
+            );
+            path = Expenses;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000013 /* Habits */ = {
+            isa = PBXGroup;
+            children = (
+                A0010001000000000000000F /* HabitsView.swift */,
+            );
+            path = Habits;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000014 /* CalendarLinks */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000010 /* CalendarLinksView.swift */,
+            );
+            path = CalendarLinks;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000015 /* Settings */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000011 /* SettingsView.swift */,
+            );
+            path = Settings;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000016 /* ShareExtension */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000012 /* ShareExtensionPlaceholder.swift */,
+            );
+            path = ShareExtension;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000017 /* Widgets */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000013 /* WidgetsPlaceholder.swift */,
+            );
+            path = Widgets;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000018 /* DesignSystem */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000014 /* DesignSystem.swift */,
+            );
+            path = DesignSystem;
+            sourceTree = "<group>";
+        };
+        A00100030000000000000019 /* Testing */ = {
+            isa = PBXGroup;
+            children = (
+                A00100010000000000000015 /* TestingUtilities.swift */,
+            );
+            path = Testing;
+            sourceTree = "<group>";
+        };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+        A00100040000000000000000 /* Keystone */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = A00100080000000000000000 /* Build configuration list for PBXNativeTarget "Keystone" */;
+            buildPhases = (
+                A00100050000000000000000 /* Sources */,
+                A00100020000000000000000 /* Frameworks */,
+                A00100060000000000000000 /* Resources */,
+            );
+            buildRules = ();
+            dependencies = ();
+            name = Keystone;
+            productName = Keystone;
+            productReference = A00100010000000000000018 /* Keystone.app */;
+            productType = "com.apple.product-type.application";
+        };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+        A00100070000000000000000 /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                BuildIndependentTargetsInParallel = 1;
+                LastSwiftUpdateCheck = 1530;
+                LastUpgradeCheck = 1530;
+                TargetAttributes = {
+                    A00100040000000000000000 = {
+                        CreatedOnToolsVersion = 15.3;
+                        DevelopmentTeam = "";
+                        ProvisioningStyle = Automatic;
+                    };
+                };
+            };
+            buildConfigurationList = A00100090000000000000000 /* Build configuration list for PBXProject "Keystone" */;
+            compatibilityVersion = "Xcode 15.0";
+            developmentRegion = en;
+            hasScannedForEncodings = 0;
+            knownRegions = (
+                en,
+            );
+            mainGroup = A00100030000000000000000;
+            productRefGroup = A00100030000000000000000;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (
+                A00100040000000000000000 /* Keystone */,
+            );
+        };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+        A00100060000000000000000 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+        A00100050000000000000000 /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                A00100000000000000000001 /* KeystoneApp.swift in Sources */,
+                A00100000000000000000002 /* CompositionRoot.swift in Sources */,
+                A00100000000000000000005 /* AppReducer.swift in Sources */,
+                A00100000000000000000006 /* PersistenceController.swift in Sources */,
+                A00100000000000000000007 /* SyncService.swift in Sources */,
+                A00100000000000000000008 /* ServiceContainer.swift in Sources */,
+                A00100000000000000000009 /* IntentHandling.swift in Sources */,
+                A0010000000000000000000A /* TodayView.swift in Sources */,
+                A0010000000000000000000B /* InboxView.swift in Sources */,
+                A0010000000000000000000C /* InventoryView.swift in Sources */,
+                A0010000000000000000000D /* ShoppingView.swift in Sources */,
+                A0010000000000000000000E /* ExpensesView.swift in Sources */,
+                A0010000000000000000000F /* HabitsView.swift in Sources */,
+                A00100000000000000000010 /* CalendarLinksView.swift in Sources */,
+                A00100000000000000000011 /* SettingsView.swift in Sources */,
+                A00100000000000000000012 /* ShareExtensionPlaceholder.swift in Sources */,
+                A00100000000000000000013 /* WidgetsPlaceholder.swift in Sources */,
+                A00100000000000000000014 /* DesignSystem.swift in Sources */,
+                A00100000000000000000015 /* TestingUtilities.swift in Sources */,
+                A00100000000000000000003 /* AppState.swift in Sources */,
+                A00100000000000000000004 /* AppEvent.swift in Sources */,
+            );
+        };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+        A001000A0000000000000000 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_COMMA = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+                CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+                CLANG_WARN_STRICT_PROTOTYPES = YES;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+                CODE_SIGN_IDENTITY = "Apple Development";
+                CODE_SIGN_STYLE = Automatic;
+                CURRENT_PROJECT_VERSION = 1;
+                DEBUG_INFORMATION_FORMAT = dwarf;
+                DEVELOPMENT_TEAM = "";
+                ENABLE_PREVIEWS = YES;
+                ENABLE_TESTABILITY = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu11;
+                GENERATE_INFOPLIST_FILE = NO;
+                INFOPLIST_FILE = Resources/Info.plist;
+                IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+                MARKETING_VERSION = 1.0;
+                PRODUCT_BUNDLE_IDENTIFIER = com.example.Keystone;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SDKROOT = iphoneos;
+                SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+            };
+            name = Debug;
+        };
+        A001000B0000000000000000 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_COMMA = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+                CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+                CLANG_WARN_STRICT_PROTOTYPES = YES;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+                CODE_SIGN_IDENTITY = "Apple Development";
+                CODE_SIGN_STYLE = Automatic;
+                CURRENT_PROJECT_VERSION = 1;
+                DEBUG_INFORMATION_FORMAT = dwarf;
+                DEVELOPMENT_TEAM = "";
+                ENABLE_NS_ASSERTIONS = NO;
+                ENABLE_PREVIEWS = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu11;
+                GENERATE_INFOPLIST_FILE = NO;
+                INFOPLIST_FILE = Resources/Info.plist;
+                IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+                MARKETING_VERSION = 1.0;
+                PRODUCT_BUNDLE_IDENTIFIER = com.example.Keystone;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SDKROOT = iphoneos;
+                SWIFT_OPTIMIZATION_LEVEL = "-O";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+            };
+            name = Release;
+        };
+        A001000C0000000000000000 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_ENTITLEMENTS = Keystone.entitlements;
+                DEVELOPMENT_TEAM = "";
+                ENABLE_PREVIEWS = YES;
+                PRODUCT_BUNDLE_IDENTIFIER = com.example.Keystone;
+                PRODUCT_NAME = Keystone;
+                SWIFT_VERSION = 5.0;
+            };
+            name = Debug;
+        };
+        A001000D0000000000000000 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_ENTITLEMENTS = Keystone.entitlements;
+                DEVELOPMENT_TEAM = "";
+                ENABLE_PREVIEWS = YES;
+                PRODUCT_BUNDLE_IDENTIFIER = com.example.Keystone;
+                PRODUCT_NAME = Keystone;
+                SWIFT_VERSION = 5.0;
+            };
+            name = Release;
+        };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+        A00100080000000000000000 /* Build configuration list for PBXNativeTarget "Keystone" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                A001000C0000000000000000 /* Debug */,
+                A001000D0000000000000000 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
+        A00100090000000000000000 /* Build configuration list for PBXProject "Keystone" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                A001000A0000000000000000 /* Debug */,
+                A001000B0000000000000000 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
+/* End XCConfigurationList section */
+    };
+    rootObject = A00100070000000000000000 /* Project object */;
+}

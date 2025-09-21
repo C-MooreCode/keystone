@@ -11,6 +11,11 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "InventorySupport",
+            path: "Core/Inventory",
+            exclude: ["Tests"]
+        ),
+        .target(
             name: "RuleEngine",
             path: "Core/Rules/Engine"
         ),
@@ -18,6 +23,11 @@ let package = Package(
             name: "RuleEngineTests",
             dependencies: ["RuleEngine"],
             path: "Core/Rules/Tests"
+        ),
+        .testTarget(
+            name: "InventorySupportTests",
+            dependencies: ["InventorySupport"],
+            path: "Core/Inventory/Tests"
         )
     ]
 )

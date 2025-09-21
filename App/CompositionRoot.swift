@@ -6,6 +6,7 @@ final class CompositionRoot: ObservableObject {
     let persistence: PersistenceController
     let appStore: AppStore
     let eventDispatcher: EventDispatcher
+    let services: ServiceContainer
 
     var modelContainer: ModelContainer { persistence.modelContainer }
 
@@ -22,6 +23,8 @@ final class CompositionRoot: ObservableObject {
         self.eventDispatcher = eventDispatcher
 
         let services = ServiceContainer(persistence: persistence, eventDispatcher: eventDispatcher)
+        self.services = services
+
         let syncService = SyncService()
         let reducer = AppReducer(services: services, persistence: persistence, syncService: syncService)
         self.appStore = AppStore(initialState: AppState(), reducer: reducer)

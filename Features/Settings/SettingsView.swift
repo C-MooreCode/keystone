@@ -1,8 +1,10 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct SettingsView: View {
     @Environment(\.services) private var services
     @StateObject private var viewModel = SettingsViewModel()
+    @State private var isImportingData = false
 
     var body: some View {
         NavigationStack {
@@ -36,11 +38,57 @@ struct SettingsView: View {
                         .disabled(!viewModel.configuration.isEnabled)
                     }
                 }
+
+                Section("Data") {
+                    Button {
+                        viewModel.exportData()
+                    } label: {
+                        Label("Export Data", systemImage: "square.and.arrow.up")
+                    }
+                    .disabled(viewModel.isPerformingDataTransfer)
+
+                    Button {
+                        isImportingData = true
+                    } label: {
+                        Label("Import Data", systemImage: "square.and.arrow.down")
+                    }
+                    .disabled(viewModel.isPerformingDataTransfer)
+                }
             }
             .navigationTitle("Settings")
         }
         .task {
-            await viewModel.configureIfNeeded(syncService: services.sync)
+            await viewModel.configureIfNeeded(syncService: services.sync, dataBackupService: services.dataBackup)
+        }
+        .fileExporter(
+            isPresented: exportBinding,
+            document: viewModel.exportDocument ?? .empty,
+            contentType: .keystoneArchive,
+            defaultFilename: viewModel.exportFilename
+        ) { result in
+            viewModel.finalizeExport(result: result)
+        }
+        .fileImporter(isPresented: $isImportingData, allowedContentTypes: [.keystoneArchive]) { result in
+            switch result {
+            case let .success(url):
+                viewModel.importData(from: url)
+            case let .failure(error):
+                viewModel.handle(error: error)
+            }
+        }
+        .alert("Settings Error", isPresented: errorBinding) {
+            Button("OK", role: .cancel) {
+                viewModel.clearError()
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "Unknown error")
+        }
+        .alert("Settings", isPresented: successBinding) {
+            Button("OK", role: .cancel) {
+                viewModel.clearSuccess()
+            }
+        } message: {
+            Text(viewModel.successMessage ?? "")
         }
     }
 
@@ -54,6 +102,39 @@ struct SettingsView: View {
                 .foregroundStyle(viewModel.statusColor)
         }
         .padding(.vertical, 2)
+    }
+
+    private var exportBinding: Binding<Bool> {
+        Binding(
+            get: { viewModel.exportDocument != nil },
+            set: { value in
+                if !value {
+                    viewModel.cancelExport()
+                }
+            }
+        )
+    }
+
+    private var errorBinding: Binding<Bool> {
+        Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { value in
+                if !value {
+                    viewModel.clearError()
+                }
+            }
+        )
+    }
+
+    private var successBinding: Binding<Bool> {
+        Binding(
+            get: { viewModel.successMessage != nil },
+            set: { value in
+                if !value {
+                    viewModel.clearSuccess()
+                }
+            }
+        )
     }
 }
 

@@ -178,9 +178,51 @@ struct TodaySummarySnapshot: Codable, Equatable {
         }
     }
 
+    struct LowStockItem: Codable, Equatable, Identifiable {
+        let id: UUID
+        let name: String
+        let quantity: Double
+        let threshold: Double
+        let unit: String
+
+        init(id: UUID, name: String, quantity: Double, threshold: Double, unit: String) {
+            self.id = id
+            self.name = name
+            self.quantity = quantity
+            self.threshold = threshold
+            self.unit = unit
+        }
+
+        var quantityFormatted: String {
+            Self.numberFormatter.string(from: NSNumber(value: quantity)) ?? "\(quantity)"
+        }
+
+        var thresholdFormatted: String {
+            Self.numberFormatter.string(from: NSNumber(value: threshold)) ?? "\(threshold)"
+        }
+
+        var detailText: String {
+            "\(quantityFormatted) \(unit) • Min \(thresholdFormatted)"
+        }
+
+        var remainingRatio: Double {
+            guard threshold > 0 else { return 0 }
+            return max(0, min(1, quantity / threshold))
+        }
+
+        private static let numberFormatter: NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.maximumFractionDigits = 2
+            formatter.minimumFractionDigits = 0
+            formatter.numberStyle = .decimal
+            return formatter
+        }()
+    }
+
     var generatedAt: Date
     var budget: Budget?
     var lowStockCount: Int
+    var lowStockItems: [LowStockItem]
     var calendar: Calendar
     var habits: [Habit]
     var inboxCount: Int
@@ -189,6 +231,7 @@ struct TodaySummarySnapshot: Codable, Equatable {
         generatedAt: Date = Date(),
         budget: Budget? = nil,
         lowStockCount: Int = 0,
+        lowStockItems: [LowStockItem] = [],
         calendar: Calendar = Calendar(state: .loading),
         habits: [Habit] = [],
         inboxCount: Int = 0
@@ -196,9 +239,42 @@ struct TodaySummarySnapshot: Codable, Equatable {
         self.generatedAt = generatedAt
         self.budget = budget
         self.lowStockCount = lowStockCount
+        self.lowStockItems = lowStockItems
         self.calendar = calendar
         self.habits = habits
         self.inboxCount = inboxCount
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case generatedAt
+        case budget
+        case lowStockCount
+        case lowStockItems
+        case calendar
+        case habits
+        case inboxCount
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        generatedAt = try container.decode(Date.self, forKey: .generatedAt)
+        budget = try container.decodeIfPresent(Budget.self, forKey: .budget)
+        lowStockCount = try container.decode(Int.self, forKey: .lowStockCount)
+        lowStockItems = try container.decodeIfPresent([LowStockItem].self, forKey: .lowStockItems) ?? []
+        calendar = try container.decode(Calendar.self, forKey: .calendar)
+        habits = try container.decode([Habit].self, forKey: .habits)
+        inboxCount = try container.decode(Int.self, forKey: .inboxCount)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(generatedAt, forKey: .generatedAt)
+        try container.encodeIfPresent(budget, forKey: .budget)
+        try container.encode(lowStockCount, forKey: .lowStockCount)
+        try container.encode(lowStockItems, forKey: .lowStockItems)
+        try container.encode(calendar, forKey: .calendar)
+        try container.encode(habits, forKey: .habits)
+        try container.encode(inboxCount, forKey: .inboxCount)
     }
 
     static var placeholder: TodaySummarySnapshot {
@@ -206,6 +282,11 @@ struct TodaySummarySnapshot: Codable, Equatable {
             generatedAt: Date(),
             budget: Budget(limit: 500, spent: 320, remaining: 180, currency: Locale.current.currency?.identifier ?? "USD"),
             lowStockCount: 3,
+            lowStockItems: [
+                LowStockItem(id: UUID(), name: "Oat milk", quantity: 0.5, threshold: 1, unit: "L"),
+                LowStockItem(id: UUID(), name: "Coffee beans", quantity: 0.25, threshold: 1, unit: "kg"),
+                LowStockItem(id: UUID(), name: "Granola", quantity: 1, threshold: 2, unit: "bags")
+            ],
             calendar: Calendar(
                 state: .event,
                 title: "Weekly planning",

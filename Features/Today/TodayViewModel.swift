@@ -41,14 +41,15 @@ final class TodayViewModel: ObservableObject {
         services.budgetPublisher.refresh()
 
         Task {
-            let lowStock = loadLowStock(using: services)
+            let lowStockItems = loadLowStock(using: services)
             let habits = loadHabits(using: services)
             let inbox = loadInbox(using: services)
             let calendar = await loadCalendar(using: services)
 
             await MainActor.run {
                 self.applySummaryUpdate { snapshot in
-                    snapshot.lowStockCount = lowStock
+                    snapshot.lowStockCount = lowStockItems.count
+                    snapshot.lowStockItems = lowStockItems
                     snapshot.habits = habits
                     snapshot.inboxCount = inbox
                     snapshot.calendar = calendar
@@ -65,17 +66,33 @@ final class TodayViewModel: ObservableObject {
         summaryStore.save(currentSummary)
     }
 
-    private func loadLowStock(using services: ServiceContainer) -> Int {
+    private func loadLowStock(using services: ServiceContainer) -> [TodaySummarySnapshot.LowStockItem] {
         do {
             let items = try services.persistence.inventoryItems.fetch()
-            return items.reduce(into: 0) { count, item in
+            let lowStock = items.compactMap { item -> TodaySummarySnapshot.LowStockItem? in
                 let threshold = NSDecimalNumber(decimal: item.restockThreshold).doubleValue
-                if threshold > 0, item.qty <= threshold {
-                    count += 1
-                }
+                guard threshold > 0, item.qty <= threshold else { return nil }
+                return TodaySummarySnapshot.LowStockItem(
+                    id: item.id,
+                    name: item.name,
+                    quantity: item.qty,
+                    threshold: threshold,
+                    unit: item.unit
+                )
             }
+
+            let sorted = lowStock.sorted { lhs, rhs in
+                let lhsRatio = lhs.threshold > 0 ? lhs.quantity / lhs.threshold : Double.greatestFiniteMagnitude
+                let rhsRatio = rhs.threshold > 0 ? rhs.quantity / rhs.threshold : Double.greatestFiniteMagnitude
+                if lhsRatio != rhsRatio {
+                    return lhsRatio < rhsRatio
+                }
+                return lhs.name.localizedCaseInsensitiveCompare(rhs.name) == .orderedAscending
+            }
+
+            return Array(sorted.prefix(20))
         } catch {
-            return summary.lowStockCount
+            return summary.lowStockItems
         }
     }
 
